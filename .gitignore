@@ -1,3 +1,4 @@
 .DS_Store
 Images/
-Model/
+Model/model_benchmark_old
+Model/model_resnet_old

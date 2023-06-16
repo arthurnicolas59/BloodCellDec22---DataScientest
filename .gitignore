@@ -1,4 +1,5 @@
 .DS_Store
-Images/
+Images/mask
+Images/PBC_dataset_normal_DIB
 Model/model_benchmark_old
 Model/model_resnet_old

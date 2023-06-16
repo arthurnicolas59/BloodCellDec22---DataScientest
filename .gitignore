@@ -3,3 +3,4 @@ Images/mask
 Images/PBC_dataset_normal_DIB
 Model/model_benchmark_old
 Model/model_resnet_old
+Model/sam_vit_h

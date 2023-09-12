@@ -1,9 +1,12 @@
 import streamlit as st
 
-# Streamlit app title
-st.title("Projet DataScientest : Classification de cellules sanguines - Dec 2022")
-st.subheader('Ludovic Rochette - Aurélie Amira - Arthur Nicolas - Virginie Belleville')
+st.set_page_config(
+    page_title="Le Projet",
+    #page_icon="👋",
+)
 
+#Titre
+st.title("Le Projet")
 
 
 # Add a text element
@@ -40,23 +43,37 @@ globules_blanc_text = [
 
 for text, path in zip(globules_blanc_text, globules_blanc_path):
     st.write(text)
-    st.image(path)
+    col1, col2, col3 = st.columns([0.3,0.4,0.3])
+    with col1:
+        st.write(' ')
+
+    with col2:
+        st.image(path)
+
+    with col3:
+        st.write(' ')
+
 
 #Globules rouges
 st.subheader('Les Globules Rouges')
 st.write('Erythroblastes : globule rouge immatures')
-st.image('streamlit_media/erythroblast.png')
+col1, col2, col3 = st.columns([0.3,0.4,0.3])
+with col1:
+        st.write(' ')
+with col2:
+    st.image('streamlit_media/erythroblast.png')
+with col3:
+    st.write(' ')
+
 
 #Platelet
 st.subheader('Les Plaquettes')
 st.write('Plaquettes (thrombocytes) : petites cellules fragmentées impliquées dans la coagulation du sang et la formation de caillots.')
-st.image('streamlit_media/platelet.png')
+col1, col2, col3 = st.columns([0.3,0.4,0.3])
+with col1:
+        st.write(' ')
+with col2:
+    st.image('streamlit_media/platelet.png')
+with col3:
+    st.write(' ')
 
-
-#EDA
-st.subheader("EDA")
-st.write('Répartition des images par classe')
-st.image('streamlit_media/edaclass.png')
-
-st.write('Affichage de l’image moyenne pour un échantillon de 1000 images par catégorie')
-st.image('streamlit_media/edameanimage.png')

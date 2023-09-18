@@ -31,7 +31,7 @@ st.set_page_config(
 )
 
 #Titre
-st.title("Le Projet")
+st.title("Modèle Benchmark Images Brutes")
 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -104,7 +104,8 @@ st.write("le dataframe validation est composé de {} images appartenant à {} cl
 
 
 #Chargement du modèle Benchmark images brutes
-model_benchmark_images_brutes = tf.keras.models.load_model('Model\model_benchmark\model_benchmark_images_brutes.h5')
+# model_benchmark_images_brutes = tf.keras.models.load_model('Model\model_benchmark\model_benchmark_images_brutes.h5')
+model_benchmark_images_brutes = tf.keras.models.load_model(r'C:\Users\lrochette\Documents\Perso\DataScientist\BloodCellDec22---DataScientest\Model\model_benchmark\model_benchmark_images_brutes.h5')
 
 #Prediction Modele Benchmark images brutes
 pred_benchmark_images_brutes = model_benchmark_images_brutes.predict(test_set)

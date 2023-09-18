@@ -15,36 +15,66 @@ from tqdm import tqdm
 import glob
 import os
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
+
 st.set_page_config(
     page_title="EDA",
     page_icon="📊",
 )
 
 #EDA
-st.subheader("EDA")
-st.write('Répartition des images par classe')
+st.subheader("Analyse Exploratoire des Données")
+st.write('Les images téléchargées sont réparties en 8 sous dossiers')
+st.image('streamlit_media\Explorateur_fichiers.png', width=200)
+st.write('''Selon cette architecture, les images présentaient les chemins d'accès suivants, que nous avons enregistrés dans un dataframe''')
 
-path=r'C:\Users\lrochette\BloodCellDec22---DataScientest\Dataframe\df_cleaned.csv'
 
-df = pd.read_csv(path)
+
+
+df=pd.read_csv('Dataframe\df_cleaned.csv')
+
+df.sort_values('Path')
 
 st.write(df)
 
 
+# Récupérer la liste unique des catégories dans votre DataFrame
+categories = df['target'].unique()
+
+# Créer un selectbox pour choisir une catégorie
+selected_category = st.selectbox('Choisissez une catégorie:', categories)
+
+subset = df[df["target"] == selected_category].sample(n=9)
+
+#création de la figure
+fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(10, 10))
+
+# boucle for
+for i, ax in enumerate(axs.flat):
+    # chargement image
+    img = Image.open(subset.iloc[i]["Path"])
+    # Plot image
+    ax.imshow(img)
+    ax.set_axis_off()
+    ax.set_title(f"Image {i+1}")
+    plt.suptitle("Catégorie visualisée : {}".format(selected_category), fontsize=20)
+
+# Visualisation
+st.pyplot(fig)
+
+#################################
+### Histogramme répartition des images par classe
+st.write('Répartition des images par classe')
 
 # Fonction pour afficher le countplot
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 order = df['target'].value_counts().index
 
-
 fig, ax = plt.subplots()
 sns.countplot(x='target', data=df, order=order, ax=ax)
 st.pyplot(fig)
-
-st.write('Affichage de l’image moyenne pour un échantillon de 1000 images par catégorie')
-st.image('streamlit_media/edameanimage.png')
-
 
 category = "IG"  # a modifier par la catégorie visée
 subset = df[df["target"] == category].sample(n=9)
@@ -60,8 +90,10 @@ for i, ax in enumerate(axs.flat):
     ax.imshow(img)
     ax.set_axis_off()
     ax.set_title(f"Image {i+1}")
-    plt.suptitle("Catégorie visualisée : {}".format(category), fontsize=20)
+    plt.suptitle("Catégorie visualisée : {}".format(selected_category), fontsize=20)
 
 
-# Visualisation
-st.pyplot(fig)
+######################
+### Affichage image moyenne
+st.write('Affichage de l’image moyenne pour un échantillon de 1000 images par catégorie')
+st.image('streamlit_media/edameanimage.png')

@@ -12,6 +12,14 @@ import glob
 import os
 import streamlit as st
 import cv2 as cv
+
+# st.header("Traintement d'image")
+st.markdown("""
+# Traitement d'image
+1. Par égalisation d'histogramme sur le canal Y de luminance
+2. Par égalisation adaptative
+""")
+
 # Chargement d'une image test
 
 df=pd.read_csv('Dataframe\df_cleaned.csv')
@@ -66,20 +74,72 @@ def plot_histogram(init_img, convert_img):
     plt.legend(('cdf','histogram'), loc = 'upper left')
     plt.title("Histogramme de l'image", color="#343434")
     plt.suptitle("Histogramme et fonction de distribution "\
-                 "cumulative de l'image test",
+                 "cumulative de l'image test sur le canal Y",
               color="black", fontsize=22, y=.98)
     
     st.pyplot()
 
-    # Affichage de l'histogramme
+st.subheader("1. Traitement par égalisation d'histogramme sur le Canal Y")
+
+
 plot_histogram(["RGB", img_RGB], ["YUV", img_YUV])
+        
+
+def plot_histogram2(init_img, convert_img):
+    """Function allowing to display the initial
+    and converted images according to a certain
+    colorimetric format as well as the histogram
+    of the latter.
+
+    Parameters
+    -------------------------------------------
+    init_img : list
+        init_img[0] = Title of the init image
+        init_img[1] = Init openCV image
+    convert_img : list
+        convert_img[0] = Title of the converted
+        convert_img[1] = converted openCV image
+    -------------------------------------------
+    """
+    hist, bins = np.histogram(
+                    convert_img[1].flatten(),
+                    256, [0,256])
+    # Distribution cumulative
+    cdf = hist.cumsum()
+    cdf_normalized = cdf * float(hist.max()) / cdf.max()
+
+    # Histogramme
+    fig = plt.figure(figsize=(25,6))
+    plt.subplot(1, 3, 1)
+    plt.imshow(init_img[1])
+    plt.title("{} Image".format(init_img[0]),
+              color="#343434")
+    plt.subplot(1, 3, 2)
+    plt.imshow(convert_img[1])
+    plt.title("{} Image".format(convert_img[0]),
+              color="#343434")
+    plt.subplot(1, 3, 3)
+    plt.plot(cdf_normalized,
+             color='r', alpha=.7,
+             linestyle='--')
+    plt.hist(convert_img[1].flatten(),256,[0,256])
+    plt.xlim([0,256])
+    plt.legend(('cdf','histogram'), loc = 'upper left')
+    plt.title("Histogramme de l'image", color="#343434")
+    plt.suptitle("Histogramme et fonction de distribution "\
+                 "cumulative de l'image test après égalisation",
+              color="black", fontsize=22, y=.98)
+    
+    st.pyplot()
 
 
 # Egalisation
 img_YUV[:,:,0] = cv.equalizeHist(img_YUV[:,:,0])
 img_equ = cv.cvtColor(img_YUV, cv.COLOR_YUV2RGB)
-plot_histogram(["RGB", img_RGB], ["Equalized", img_equ])
+plot_histogram2(["RGB", img_RGB], ["Equalized", img_equ])
 
+
+st.subheader("Associé à un filtrage non local des moyennes")
 # Application d'un filtrage non local des moyennes
 dst_img = cv.fastNlMeansDenoisingColored(
     src=img_equ,

@@ -73,3 +73,5 @@ for i, category in enumerate(list_category):
 plt.tight_layout()  # Pour un espacement approprié entre les sous-tracés
 st.pyplot(fig)
 
+
+

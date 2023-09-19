@@ -14,18 +14,28 @@ import os
 import streamlit as st
 
 st.set_page_config(
-    page_title="Visualisation sélective des cellules",
-    #page_icon="👋",
+    page_title="Essai",
+    page_icon="📊",
 )
 
+#EDA
+st.header("Essai1")
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
-df=pd.read_csv('Dataframe\df_cleaned.csv')
+# Trouver tous les chemins vers les fichiers qui finissent par .jpg
+liste = glob.glob(r'C:\\Users\\lrochette\\BloodCellDec22---DataScientest\\Images\\PBC_dataset_normal_DIB\\*\\*.jpg')
+
+
+# Création d'une liste comprenant les chemins d'accès aux images ainsi que le label de chaque image
+liste = list(map(lambda x : [x, x.split('\\')[12].split('_')[0]], liste))
+                                        
+# Créer un DataFrame pandas
+df = pd.DataFrame(liste, columns=['Path', 'target'])
+df=df.replace(['SNE','BNE'],'NEUTROPHIL')
+df=df.replace(['MY','MMY','PMY'],'IG')
 
 # Mapping entre nameLabel et label
 mapping = {target: idx for idx, target in enumerate(df.target.unique())}
 
-path= df['Path']
 # Ajouter la colonne 'label' en utilisant le mapping
 df['target_numerique'] = df['target'].map(mapping)
 
@@ -56,4 +66,6 @@ for i, ax in enumerate(axs.flat):
 
 # Visualisation
 st.pyplot(fig)
+
+
 

@@ -3,6 +3,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import cv2
 
+st.set_page_config(
+    page_title="Segmentation1",
+    page_icon="📊",
+)
+
+#EDA
+st.header("Segmentation1")
+
 st.set_option('deprecation.showPyplotGlobalUse', False)
 df=pd.read_csv('Dataframe\df_mask_SAM.csv')
 

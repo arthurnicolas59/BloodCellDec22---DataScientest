@@ -13,6 +13,16 @@ import os
 import streamlit as st
 import cv2 as cv
 
+st.set_page_config(
+    page_title="Traitement d'images",
+    page_icon="📊",
+)
+
+#EDA
+st.header("Traitement d'images")
+
+
+
 # st.header("Traintement d'image")
 st.markdown("""
 # Traitement d'image

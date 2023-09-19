@@ -13,6 +13,13 @@ import glob
 import os
 import streamlit as st
 
+st.set_page_config(
+    page_title="Essai3",
+    page_icon="📊",
+)
+
+#EDA
+st.header("Essai3")
 
 df=pd.read_csv('Dataframe\df_cleaned.csv')
 

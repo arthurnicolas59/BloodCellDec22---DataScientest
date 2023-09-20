@@ -94,69 +94,6 @@ nb_img_train=len(train_filepaths)
 nb_img_val=len(val_filepaths)
 nb_img_test=len(test_filepaths)
 
-# fonction de chargement pour le modèle de segmentation
-
-def parse_function_segmentation(filepath, maskpath):
-    # Lire l'image
-    image = tf.io.read_file(filepath)
-    image = tf.image.decode_jpeg(image, channels=3)
-    image = tf.image.resize(image, [256, 256])
-    image = image / 255.0 # Normaliser entre 0 et 1
-
-    # Lire le masque
-    mask = tf.io.read_file(maskpath)
-    mask = tf.image.decode_png(mask, channels=1) # Ou utiliser decode_jpeg si c'est un JPEG
-    mask = tf.image.resize(mask, [256, 256])
-    # mask = mask / 255.0 # Normaliser entre 0 et 1 si nécessaire
-    return image, mask
-
-def augment_image(image, mask):
-    # Appliquer une rotation aléatoire, un décalage, etc.
-    if tf.random.uniform(()) > 0.5:
-        image = tf.image.flip_left_right(image)
-        mask = tf.image.flip_left_right(mask)
-
-    if tf.random.uniform(()) > 0.5:
-        image = tf.image.flip_up_down(image)
-        mask = tf.image.flip_up_down(mask)
-
-    k = tf.random.uniform(shape=[], minval=0, maxval=4, dtype=tf.int32)
-    image = tf.image.rot90(image, k=k)
-    mask = tf.image.rot90(mask, k=k)
-
-    if tf.random.uniform(()) > 0.5:
-        dx, dy = 10, 10  # décalage souhaité
-        image = tf.image.pad_to_bounding_box(image, dy, dx, 256 + dy, 256 + dx)
-        mask = tf.image.pad_to_bounding_box(mask, dy, dx, 256 + dy, 256 + dx)
-        image = tf.image.crop_to_bounding_box(image, 0, 0, 256, 256)
-        mask = tf.image.crop_to_bounding_box(mask, 0, 0, 256, 256)
-
-    if tf.random.uniform(()) > 0.5:
-        zoom_ratio = 0.8  # supérieur à 1 pour zoom avant, inférieur à 1 pour zoom arrière
-        new_width, new_height = int(256 * zoom_ratio), int(256 * zoom_ratio)
-        image = tf.image.resize(image, [new_width, new_height])
-        mask = tf.image.resize(mask, [new_width, new_height])
-        image = tf.image.pad_to_bounding_box(image, (256 - new_width) // 2, (256 - new_height) // 2, 256, 256)
-        mask = tf.image.pad_to_bounding_box(mask, (256 - new_width) // 2, (256 - new_height) // 2, 256, 256)
-
-    return image, mask
-
-def load_and_augment_segmentation(filepath, maskpath):
-    image, mask = parse_function_segmentation(filepath, maskpath)
-    image, mask = augment_image(image, mask)
-    return image, mask
-
-def create_dataset_segmentation(filepaths, maskpaths, augment=False):
-    dataset = tf.data.Dataset.from_tensor_slices((filepaths, maskpaths))
-    if augment:
-        dataset = dataset.map(load_and_augment_segmentation, num_parallel_calls=tf.data.AUTOTUNE)
-    else:
-        dataset = dataset.map(parse_function_segmentation, num_parallel_calls=tf.data.AUTOTUNE)
-    return dataset.shuffle(buffer_size=1000).batch(32).repeat().prefetch(tf.data.AUTOTUNE)
-
-train_dataset_segmentation = create_dataset_segmentation(train_filepaths, train_maskpaths, augment=True)
-val_dataset_segmentation = create_dataset_segmentation(val_filepaths, val_maskpaths, augment=False)
-test_dataset_segmentation = create_dataset_segmentation(test_filepaths, test_maskpaths, augment=False)
 
 ### Fonction pour visualiser l'image et le masque côte à côte
 
@@ -197,17 +134,17 @@ saved_segmenter = tf.keras.models.load_model(
 
 #Prediction
 
-n = len(test_filepaths)
-batch_size = 32
+# n = len(test_filepaths)
+# batch_size = 32
 
-steps_to_evaluate = n // batch_size
+# steps_to_evaluate = n // batch_size
 
-limited_dataset = test_dataset_segmentation.take(steps_to_evaluate)
+# limited_dataset = test_dataset_segmentation.take(steps_to_evaluate)
 
-### Evaluation de la précision du modèle sur le jeu de test
-evaluation=saved_segmenter.evaluate(limited_dataset)
-print('Précision du modèle sur le jeu de test :',np.round(evaluation[1],2),"\n",
-      'Perte du modèle sur le jeu de test :',np.round(evaluation[0],2))
+# ### Evaluation de la précision du modèle sur le jeu de test
+# evaluation=saved_segmenter.evaluate(limited_dataset)
+# print('Précision du modèle sur le jeu de test :',np.round(evaluation[1],2),"\n",
+#       'Perte du modèle sur le jeu de test :',np.round(evaluation[0],2))
 
 ### Définition de fonctions de chargement et transformation
 ### des images ou masques à partir des chemins
@@ -263,3 +200,31 @@ for idx in indexes:
   plt.title("Masque predit par le modèle Unet")
 
   st.pyplot()
+
+# image=load_image(test_filepaths[3])
+# img=tf.reshape(image,(1,256,256,3))
+# mask_pred=saved_segmenter.predict(img)
+# mask_true=load_mask(test_maskpaths[3])
+# image=tf.cast(image,dtype=tf.int32)
+
+
+# plt.figure(figsize=(15,7))
+
+# plt.subplot(size,3,1)
+# plt.imshow(image)
+# plt.axis("off")
+# plt.title("Image d'origine")
+
+
+# plt.subplot(size,3,2)
+# plt.imshow(tf.reshape(mask_true,(256,256)),cmap='gray')
+# plt.axis("off")
+# plt.title("Masque issu de SAM")
+
+
+# plt.subplot(size,3,3)
+# plt.imshow(tf.reshape(mask_pred,(256,256)),cmap='gray')
+# plt.axis("off")
+# plt.title("Masque predit par le modèle Unet X")
+
+# st.pyplot()

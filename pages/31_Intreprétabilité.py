@@ -128,7 +128,7 @@ numpy_image = numpy_image / 255
 
 from lime.lime_image import LimeImageExplainer
 
-@st.cache(allow_output_mutation=True)
+# @st.cache_data
 def get_explanation(numpy_image, model, num):
     explainer = LimeImageExplainer(verbose=False)
     explanation = explainer.explain_instance(

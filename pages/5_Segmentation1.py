@@ -36,17 +36,17 @@ plt.axis('off')
 st.write(path[20])
 st.write(example.min(), example.max())
 
-threshold=20
-for fichier in path :
-    image=cv2.imread(fichier)
-    if len(image.shape)==3:
+# threshold=20
+# for fichier in path :
+#     image=cv2.imread(fichier)
+#     if len(image.shape)==3:
 
-    ### La moyenne des pixels RGB est calculée et un seuil est défini pour séparer les pixels
-    ### de la feuille et le reste.
-    ### La valeur de 1 est attribué pour un pixel de la feuille, le pixel prend la valeur 0 sinon.
+#     ### La moyenne des pixels RGB est calculée et un seuil est défini pour séparer les pixels
+#     ### de la feuille et le reste.
+#     ### La valeur de 1 est attribué pour un pixel de la feuille, le pixel prend la valeur 0 sinon.
 
-        img_mask=(image.mean(axis=2)>threshold).astype(int)
-        cv2.imwrite(fichier,img_mask)
+#         img_mask=(image.mean(axis=2)>threshold).astype(int)
+#         cv2.imwrite(fichier,img_mask)
 
 
 plt.subplot(122)

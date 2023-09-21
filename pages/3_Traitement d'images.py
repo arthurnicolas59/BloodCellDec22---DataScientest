@@ -125,12 +125,11 @@ with tab1:
         plt.axis('off')
         st.pyplot()
 
+    st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
     with col1:
         st.write("")
-    with col2:
-        st.write('')
-        st.write('')
+    with col2:    
         st.image('streamlit_media/FlecheBas.png')
     with col3:
         st.write("")
@@ -206,12 +205,11 @@ with tab2:
         plt.tight_layout()
         st.pyplot()
 
+        st.divider()
         col1,col2,col3=st.columns([0.4,0.2,0.4])
         with col1:
             st.write("")
         with col2:
-            st.write('')
-            st.write('')
             st.image('streamlit_media/FlecheBas.png')
         with col3:
             st.write("")

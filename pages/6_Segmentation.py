@@ -39,14 +39,28 @@ tab1, tab2 = st.tabs(["**Segmentation SAM**", "**Prédiction Unet**"])
 with tab1:
     col1,col2=st.columns([0.5,0.5])
     with col1 :
-        st.write("**Sélection d'une zone d'intérêt**")
+        st.write("**1°) Sélection d'une zone d'intérêt**")
         
     with col2:
-        st.write("**Extraction de l'objet**")
+        st.write("**2°) Extraction de l'objet**")
     st.image('streamlit_media\SAM2.png')
     st.image('streamlit_media\SAM3.png')
     st.image('streamlit_media\SAM4.png')
     st.image('streamlit_media\SAM5.png')
+
+    st.divider()
+
+    col1, col2,col3=st.columns(([0.45,0.1,0.45]))
+    with col1 :
+        st.write("")
+    with col2:
+        st.image('streamlit_media\FlecheBas.png',width=100)
+        
+    with col3:
+        st.write("")
+    st.subheader("Sélection manuelle des bonnes segmentations faites par le modèle SAM")
+
+    st.divider()
 
     import plotly.express as px
 
@@ -58,6 +72,7 @@ with tab1:
 
     # Affichez le graphique dans Streamlit
     st.plotly_chart(fig)
+
 
 
 with tab2:
@@ -157,3 +172,4 @@ with tab2:
         plt.title("Masque predit par le modèle Unet")
 
         st.pyplot()
+

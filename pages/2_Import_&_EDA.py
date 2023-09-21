@@ -188,12 +188,11 @@ with tab6:
             * :red[**Superposition des vignettes sur la projection**]''')
         st.image('streamlit_media/Projection2DimagesBrutesVignettes.png')
 
+    st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
     with col1:
         st.write("")
-    with col2:
-        st.write('')
-        st.write('')
+    with col2:        
         st.image('streamlit_media/FlecheBas.png')
     with col3:
         st.write("")

@@ -33,21 +33,37 @@ st.set_page_config(
 #Segmentation
 st.header("Segmentation")
 
-tab1, tab2 = st.tabs(["Segmentation SAM", "Prédiction Unet"])
+df_mask=pd.read_csv('Dataframe\df_mask_SAM.csv')
+tab1, tab2 = st.tabs(["**Segmentation SAM**", "**Prédiction Unet**"])
 
 with tab1:
     col1,col2=st.columns([0.5,0.5])
     with col1 :
-        st.subheader("Sélection d'une zone d'intérêt")
+        st.write("**Sélection d'une zone d'intérêt**")
         
     with col2:
-        st.subheader("Extraction de l'objet")
-    st.image('streamlit_media\SAM.png')
+        st.write("**Extraction de l'objet**")
+    st.image('streamlit_media\SAM2.png')
+    st.image('streamlit_media\SAM3.png')
+    st.image('streamlit_media\SAM4.png')
+    st.image('streamlit_media\SAM5.png')
+
+    import plotly.express as px
+
+    # Triez les catégories target par décompte décroissant
+    sorted_targets = df_mask['nameLabel'].value_counts().index.tolist()
+
+    # Utilisez plotly pour créer un histogramme avec les catégories triées
+    fig = px.histogram(df_mask, x='nameLabel', title='Histogramme répartition des images par classe', category_orders={"nameLabel": sorted_targets})
+
+    # Affichez le graphique dans Streamlit
+    st.plotly_chart(fig)
+
 
 with tab2:
-    st.subheader('Prédiction Unet')
+    st.write('**Prédiction Unet**')
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    df_mask=pd.read_csv('Dataframe\df_mask_SAM.csv')
+    
 
     ### Définition d'une fonction de perte : Coefficient de Dice
     def LossDice(y_true, y_pred):

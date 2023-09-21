@@ -26,7 +26,7 @@ st.set_page_config(
 #EDA
 st.header("Analyse Exploratoire des Données")
 
-tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["Structure du dataset", "Dataframe", "Apperçu","Répartition par classe","Moyenne et écart type","Projection 2D"])
+tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["**Structure du dataset**", "**Dataframe**", "**Apperçu**","**Répartition par classe**","**Moyenne et écart type**","**Projection 2D**"])
 
 with tab1:
    st.subheader("Structure du dataset")
@@ -113,8 +113,6 @@ with tab4:
     # Affichez le graphique dans Streamlit
     st.plotly_chart(fig)
     ######################
-    ### Affichage image moyenne
-    st.write('Affichage de l’image moyenne pour un échantillon de 1000 images par catégorie')
 
 with tab5:
     # Offrez à l'utilisateur une boîte de sélection pour choisir une catégorie
@@ -182,10 +180,28 @@ with tab6:
 
     with col1:
         st.markdown('''
-            * :red[Projection 2D des images brutes]''')
+            * :red[**Projection 2D des images brutes**]''')
         st.image('streamlit_media/Projection2DimagesBrutes.png')
 
     with col2:
         st.markdown('''
-            * :red[Superposition des vignettes sur la projection]''')
+            * :red[**Superposition des vignettes sur la projection**]''')
         st.image('streamlit_media/Projection2DimagesBrutesVignettes.png')
+
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.write('')
+        st.write('')
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2,col3=st.columns([0.25,0.5,0.25])
+    with col1:
+        st.write("")
+    with col2:
+        st.subheader("? Traitement d'images ?")
+    with col3:
+        st.write("")

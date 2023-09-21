@@ -273,20 +273,57 @@ with tab5:
     st.markdown('''
                 * Erreur de prédiction du modèle
                 ''')
-    predicted_labels = y_pred_benchmark_images_brutes
-    true_labels = np.argmax(test_set, axis=1)
+    # #création d'un dataframe pour l'interprétabilité
+    # mapping_dict = {value: key for key, value in label_map.items()}
+    # df_interpretation = test_df.copy()
 
-    predicted_labels = np.round(y_pred_benchmark_images_brutes).astype(int).flatten()
-    true_labels = test_set.astype(int)
+    # #Prediction
+    # predictions_benchmark = model_benchmark_images_brutes.predict(test_set)
+    # y_pred_benchmark = tf.argmax(predictions_benchmark, axis = 1)
 
-    incorrect_indices = np.where(predicted_labels != true_labels)[0]
+    # #conversion
+    # arr = np.array(y_pred_benchmark)
+    # converted_arr = np.vectorize(mapping_dict.get)(arr)
+    # df_interpretation['prediction'] = converted_arr
+    df_interpretation=pd.read_csv('Dataframe\df_interpretation.csv')
+    df_new = df_interpretation.loc[df_interpretation['target'] != df_interpretation['prediction']] #je crée un dataframe reprenant uniquement la catégorie i
+    
+    df_new=df_new.reset_index(drop=True)
 
-    import streamlit as st
+    st.dataframe(df_new)
 
-    MAX_IMAGES = 10
-    for index in incorrect_indices[:MAX_IMAGES]:
-        st.image(test_set[index], caption=f"True label: {true_labels[index]}, Predicted: {predicted_labels[index]}", use_column_width=True)
+    import tensorflow as tf
+    def load_image(filepath,resize=(256,256)):
+        # Charger l'information brute en mémoire
+        im = tf.io.read_file(filepath)
+        # Décoder l'information en un tensorflow RGB (3 channels).
+        im = tf.io.decode_jpeg(im, channels=3)
+        #Redimensionner l'image
+        return tf.image.resize(im, size=resize)
 
+    ### Affichage d'une prédiction de masque en comparaison avec un masque
+    ### fait à partir de l'image segmentée du jeu de donnée Test
+
+    test_filepath=df_new['Path']
+    size=2
+    indexes=np.random.choice(len(test_filepath),size=2)
+
+    st.write(len(test_filepath))
+    st.write(test_filepath.index)
+
+
+
+    for idx in indexes:
+        image=load_image(test_filepath[idx])
+        image=tf.cast(image,dtype=tf.int32)
+
+        plt.figure(figsize=(15,7))
+
+        plt.imshow(image)
+        plt.axis("off")
+        plt.title(df_new['target'][idx])
+
+        st.pyplot()
 
 
 

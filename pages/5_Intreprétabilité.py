@@ -135,7 +135,7 @@ def get_explanation(numpy_image, model, num):
         image=numpy_image,
         classifier_fn=model.predict,
         top_labels=1,
-        num_samples=1000
+        num_samples=100
     )
     dict_explainer = {df_new['target'].iloc[num]: explanation}
     return dict_explainer

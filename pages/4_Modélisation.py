@@ -24,6 +24,8 @@ from tensorflow.keras.utils import plot_model
 from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
+import PIL.Image
+from PIL import Image
 
 st.set_page_config(
     page_title="Modèle Benchmark Images Brutes",
@@ -37,7 +39,7 @@ st.title("Modèle Benchmark Images Brutes")
 st.set_option('deprecation.showPyplotGlobalUse', False)
 df=pd.read_csv('Dataframe\df_cleaned.csv')
 
-tab1, tab2, tab3, tab4,tab5=st.tabs(["**Structure**","**Chargement**","**Callbacks**","**Matrice de confusion**","**Images mal prédites**"])
+tab1, tab2, tab3, tab4,tab5,tab6=st.tabs(["**Structure**","**Chargement**","**Callbacks**","**Matrice de confusion**","**Prédictions**","**Interprétabilité**"])
 
 with tab1:
     st.markdown('''
@@ -48,19 +50,20 @@ with tab1:
     model_benchmark_images_brutes = tf.keras.models.load_model(r'C:\Users\lrochette\Documents\Perso\DataScientist\BloodCellDec22---DataScientest\Model\model_benchmark\model_benchmark_images_brutes.h5')
 
     ## Présentation du Modèle
-    from io import StringIO
-    import sys
+    st.image('streamlit_media\plot_Model_Benchmark.png',width=400)
+    # from io import StringIO
+    # import sys
 
-    # Création d'un objet StringIO pour capturer la sortie de la fonction summary
-    buffer = StringIO()
-    sys.stdout = buffer
-    model_benchmark_images_brutes.summary()
-    sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
+    # # Création d'un objet StringIO pour capturer la sortie de la fonction summary
+    # buffer = StringIO()
+    # sys.stdout = buffer
+    # model_benchmark_images_brutes.summary()
+    # sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
 
-    summary_str = buffer.getvalue()
+    # summary_str = buffer.getvalue()
 
-    # Afficher dans Streamlit
-    st.text(summary_str)
+    # # Afficher dans Streamlit
+    # st.text(summary_str)
 
 
 with tab2:
@@ -192,32 +195,39 @@ with tab2:
     '''
 
     st.code(code, language='python')
+    
+    # st.markdown('''
+    #          * Vérification du chargement des images dans le dataset train
+    #         ''')
+    
+    # col1,col2,col3=st.columns([0.3,0.4,0.3])
+    # with col1:
+    #     st.write("")
+    # with col2:
+        
+    #     import matplotlib.pyplot as plt
 
-    st.markdown('''
-            * Vérification du chargement des images dans le dataset train
-            ''')
+    #     def visualize_sample(image):
+    #         plt.figure(figsize=(5, 5))
 
-    import matplotlib.pyplot as plt
+    #         plt.imshow(image[0])
+    #         plt.axis('off')
+            
+    #         st.pyplot()
 
-    def visualize_sample(image):
-        plt.figure(figsize=(5, 5))
-
-        plt.imshow(image[0])
-        plt.axis('off')
-        plt.title("image")
-
-        st.pyplot()
-
-    # Prendre un échantillon du train_dataset
-    for idx, image in enumerate(train_set):
-        if idx >= 5:  # Si vous avez déjà visualisé 5 images, arrêtez la boucle.
-            break
-        visualize_sample(image[0])
+    #     # Prendre un échantillon du train_dataset
+    #     for idx, image in enumerate(train_set):
+    #         if idx >= 5:  # Si vous avez déjà visualisé 5 images, arrêtez la boucle.
+    #             break
+    #         visualize_sample(image[0])
 
 
-    st.caption("le dataframe train est composé de {} images appartenant à {} classes".format(nb_img_train, len(train_set.class_indices)))
-    st.caption("le dataframe validation est composé de {} images appartenant à {} classes".format(nb_img_val, len(validation_set.class_indices)))
-    st.caption("le dataframe validation est composé de {} images appartenant à {} classes".format(nb_img_test, len(test_set.class_indices)))
+    #     st.caption("le dataframe train est composé de {} images appartenant à {} classes".format(nb_img_train, len(train_set.class_indices)))
+    #     st.caption("le dataframe validation est composé de {} images appartenant à {} classes".format(nb_img_val, len(validation_set.class_indices)))
+    #     st.caption("le dataframe validation est composé de {} images appartenant à {} classes".format(nb_img_test, len(test_set.class_indices)))
+    # with col3:
+    #     st.write("")
+    
 
 with tab3:
     st.markdown('''
@@ -244,54 +254,69 @@ with tab3:
 
 
 with tab4:
-    st.markdown('''
+    
+    col1,col2,col3=st.columns([0.15,0.7,0.15])
+    with col1:
+        st.write("")
+    with col2:
+        st.markdown('''
                 * Matrice de confusion
                 ''')
+        st.image('streamlit_media\Matrice_confusion_benchmark_images_brutes.png')
+        st.markdown('''
+                * Rapport de classification
+                ''')
+        st.image('streamlit_media\Rapport_Classification_benchmark_images_brutes.png')
+        # #Prediction Modele Benchmark images brutes
+        # pred_benchmark_images_brutes = model_benchmark_images_brutes.predict(test_set)
+        # y_pred_benchmark_images_brutes = tf.argmax(pred_benchmark_images_brutes, axis = 1)
 
-    #Prediction Modele Benchmark images brutes
-    pred_benchmark_images_brutes = model_benchmark_images_brutes.predict(test_set)
-    y_pred_benchmark_images_brutes = tf.argmax(pred_benchmark_images_brutes, axis = 1)
+        # from sklearn.metrics import accuracy_score,classification_report, recall_score,confusion_matrix, roc_auc_score, precision_score, f1_score, roc_curve, auc, ConfusionMatrixDisplay, classification_report
 
-    from sklearn.metrics import accuracy_score,classification_report, recall_score,confusion_matrix, roc_auc_score, precision_score, f1_score, roc_curve, auc, ConfusionMatrixDisplay, classification_report
+        # #Création d'une Matrice de confusion
+        # def plot_matrix(y_true, y_pred, label):
+        #     cm = confusion_matrix(y_true.classes, y_pred)
+        #     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label)
+        #     print('Vous retrouverez la matrice de confusion du modèle ci-dessous:')
+        #     plt.figure()
+        #     disp.plot(cmap=plt.cm.Blues)
+        #     st.pyplot()
 
-    #Création d'une Matrice de confusion
-    def plot_matrix(y_true, y_pred, label):
-        cm = confusion_matrix(y_true.classes, y_pred)
-        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label)
-        print('Vous retrouverez la matrice de confusion du modèle ci-dessous:')
-        plt.figure()
-        disp.plot(cmap=plt.cm.Blues)
-        st.pyplot()
-
-        st.write('\nVous retrouverez le rapport de classification du modèle ci-dessous:\n')
-        st.write(classification_report(y_true.classes, y_pred, target_names=label))
+        #     st.caption('\nVous retrouverez le rapport de classification du modèle ci-dessous:\n')
+        #     st.caption(classification_report(y_true.classes, y_pred, target_names=label))
 
 
-    plot_matrix(y_true = test_set, y_pred = y_pred_benchmark_images_brutes,label =label_map)
+        # plot_matrix(y_true = test_set, y_pred = y_pred_benchmark_images_brutes,label =label_map)
+    with col3:
+        st.write("")
 
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2,col3=st.columns([0.2,0.6,0.2])
+    with col1:
+        st.write("")
+    with col2:
+        st.subheader("Score de rappel plus faible pour la classe IG\n Attention aux faux négatifs\n pour l'incidence médicale que cela peut avoir")
+    with col3:
+        st.write("")
 with tab5:
     st.markdown('''
                 * Erreur de prédiction du modèle
                 ''')
-    # #création d'un dataframe pour l'interprétabilité
-    # mapping_dict = {value: key for key, value in label_map.items()}
-    # df_interpretation = test_df.copy()
-
-    # #Prediction
-    # predictions_benchmark = model_benchmark_images_brutes.predict(test_set)
-    # y_pred_benchmark = tf.argmax(predictions_benchmark, axis = 1)
-
-    # #conversion
-    # arr = np.array(y_pred_benchmark)
-    # converted_arr = np.vectorize(mapping_dict.get)(arr)
-    # df_interpretation['prediction'] = converted_arr
+    
     df_interpretation=pd.read_csv('Dataframe\df_interpretation.csv')
     df_new = df_interpretation.loc[df_interpretation['target'] != df_interpretation['prediction']] #je crée un dataframe reprenant uniquement la catégorie i
     
     df_new=df_new.reset_index(drop=True)
 
-    st.dataframe(df_new)
-
+    
     import tensorflow as tf
     def load_image(filepath,resize=(256,256)):
         # Charger l'information brute en mémoire
@@ -301,29 +326,119 @@ with tab5:
         #Redimensionner l'image
         return tf.image.resize(im, size=resize)
 
-    ### Affichage d'une prédiction de masque en comparaison avec un masque
-    ### fait à partir de l'image segmentée du jeu de donnée Test
+    
+    
+    indexes = np.random.choice(len(df_new), size=8, replace=False)
+    
+    fig, axs = plt.subplots(2, 4, figsize=(15, 7))
+    
+    for i, idx in enumerate(indexes):
+        image = load_image(df_new['Path'].iloc[idx])
+        image = tf.cast(image, dtype=tf.int32)
+        
+        # Conversion des index linéaires en index de grille 2D
+        row = i // 4
+        col = i % 4
+        
+        axs[row, col].imshow(image)
+        axs[row, col].axis("off")
+        axs[row, col].set_title(f"Target: {df_new['target'].iloc[idx]} : Prediction: {df_new['prediction'].iloc[idx]}")
 
-    test_filepath=df_new['Path']
-    size=2
-    indexes=np.random.choice(len(test_filepath),size=2)
+    st.pyplot()
 
-    st.write(len(test_filepath))
-    st.write(test_filepath.index)
+    st.divider()
+
+    st.markdown('''
+            * Bonne prédiction du modèle
+            ''')
+       
+    df_true = df_interpretation.loc[df_interpretation['target'] == df_interpretation['prediction']] #je crée un dataframe reprenant uniquement la catégorie i
+    
+    df_true=df_true.reset_index(drop=True)
+
+    unique_categories = df_true['target'].unique()
+
+    # Vérification pour s'assurer qu'il y a 8 catégories uniques
+    # if len(unique_categories) != 8:
+    #     st.write("Attention : il n'y a pas exactement 8 catégories uniques dans le dataframe.")
+    #     return
+
+    fig, axs = plt.subplots(2, 4, figsize=(15, 7))
+
+    list_path=[]
+
+    for i, category in enumerate(unique_categories):
+        # Sélectionnez une image aléatoire de cette catégorie
+        subset = df_true[df_true["target"] == category].sample(n=1)
+        image_path = subset["Path"].values[0]
+        list_path.append(image_path)
+        
+        image = load_image(image_path)
+        image = tf.cast(image, dtype=tf.int32)
+        
+        # Conversion des index linéaires en index de grille 2D
+        row = i // 4
+        col = i % 4
+        
+        axs[row, col].imshow(image)
+        axs[row, col].axis("off")
+        axs[row, col].set_title(f"Category: {category}")
+
+    st.pyplot()
+
+with tab6:
+    from tensorflow.keras.preprocessing import image
+    import numpy as np
+    from lime.lime_image import LimeImageExplainer
+
+    # Charger l'image à partir du chemin d'accès et la prétraiter
+    def load_and_preprocess_image(image_path):
+        img = image.load_img(image_path, target_size=(224, 224))
+        img_array = image.img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0)  # Convertir l'image en un batch de taille (1, height, width, channels)
+        img_array /= 255.  # rescale
+        return img_array[0]  # return the first image in the batch (our only image)
+
+    # Modifier la fonction pour obtenir une explication
+    def get_explanation(numpy_image, model):
+        explainer = LimeImageExplainer(verbose=False)
+        explanation = explainer.explain_instance(
+            image=numpy_image,
+            classifier_fn=model.predict,
+            top_labels=1,
+            num_samples=100
+        )
+        dict_explainer = {'Label': explanation}
+        return dict_explainer
+    def plot_explainer(dict_explainer):
+        from skimage.segmentation import mark_boundaries
+        for cle, objet in dict_explainer.items():
+            # st.caption("Analyse LIME pour une image de la catégorie {}".format(cle))
+            temp_1, mask_1 = objet.get_image_and_mask(objet.top_labels[0], positive_only=True, num_features=5, hide_rest=True)
+            temp_2, mask_2 = objet.get_image_and_mask(objet.top_labels[0], positive_only=False, num_features=10, hide_rest=False)
+            plt.figure(figsize=(10,10))
+            plt.subplot(121)
+            plt.imshow(mark_boundaries(temp_1, mask_1))
+            plt.title('SuperPixel pour cette catégorie')
+            plt.axis('off')
+
+            plt.subplot(122)
+            plt.imshow(mark_boundaries(temp_2, mask_2))
+            plt.title('Répartition des pixels positifs (vert) et négatifs (rouge)')
+            plt.axis('off')
+            st.pyplot()
+
+    # Chargement de l'image et obtention de l'explication
+    for path in list_path:
+    
+        image_path = path
+        numpy_image = load_and_preprocess_image(image_path)
+        dict_explainer = get_explanation(numpy_image, model_benchmark_images_brutes)
+
+        # Affichage de l'explication
+        plot_explainer(dict_explainer)
 
 
-
-    for idx in indexes:
-        image=load_image(test_filepath[idx])
-        image=tf.cast(image,dtype=tf.int32)
-
-        plt.figure(figsize=(15,7))
-
-        plt.imshow(image)
-        plt.axis("off")
-        plt.title(df_new['target'][idx])
-
-        st.pyplot()
 
 
 

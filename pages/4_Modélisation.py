@@ -50,20 +50,20 @@ with tab1:
     model_benchmark_images_brutes = tf.keras.models.load_model(r'C:\Users\lrochette\Documents\Perso\DataScientist\BloodCellDec22---DataScientest\Model\model_benchmark\model_benchmark_images_brutes.h5')
 
     ## Présentation du Modèle
-    st.image('streamlit_media\plot_Model_Benchmark.png',width=400)
-    # from io import StringIO
-    # import sys
+    # st.image('streamlit_media\plot_Model_Benchmark.png',width=400)
+    from io import StringIO
+    import sys
 
-    # # Création d'un objet StringIO pour capturer la sortie de la fonction summary
-    # buffer = StringIO()
-    # sys.stdout = buffer
-    # model_benchmark_images_brutes.summary()
-    # sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
+    # Création d'un objet StringIO pour capturer la sortie de la fonction summary
+    buffer = StringIO()
+    sys.stdout = buffer
+    model_benchmark_images_brutes.summary()
+    sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
 
-    # summary_str = buffer.getvalue()
+    summary_str = buffer.getvalue()
 
-    # # Afficher dans Streamlit
-    # st.text(summary_str)
+    # Afficher dans Streamlit
+    st.text(summary_str)
 
 
 with tab2:
@@ -437,6 +437,28 @@ with tab6:
 
         # Affichage de l'explication
         plot_explainer(dict_explainer)
+
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2,col3=st.columns([0.2,0.6,0.2])
+    with col1:
+        st.write("")
+    with col2:
+        st.markdown('''
+            * Le modèle ne semble pas retenir les zones de l'image correspondant aux cellules sanguines
+            ''')
+        st.markdown('''
+            * Segmentation et création de masques ?
+            ''')
+    with col3:
+        st.write("")
 
 
 

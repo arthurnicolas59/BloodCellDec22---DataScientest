@@ -34,7 +34,7 @@ st.set_page_config(
 st.header("Segmentation")
 
 df_mask=pd.read_csv('Dataframe\df_mask_SAM.csv')
-tab1, tab2 = st.tabs(["**Segmentation SAM**", "**Prédiction Unet**"])
+tab1, tab2,tab3 = st.tabs(["**Segmentation SAM**", "**Prédiction Unet**","**Image masquée**"])
 
 with tab1:
     col1,col2=st.columns([0.5,0.5])
@@ -173,3 +173,52 @@ with tab2:
 
         st.pyplot()
 
+with tab3:
+    import cv2
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    # Je suppose que df_fusion et df_mask sont déjà définis quelque part dans votre code
+    df_fusion = df_mask
+
+    # Définition d'une liste contenant les différents labels
+    liste_label = df_fusion.nameLabel.unique()
+
+    # Création d'une figure
+    fig, axes = plt.subplots(nrows=len(liste_label), ncols=3, figsize=(15, 4*len(liste_label)))
+
+    for ax, label in zip(axes, liste_label):
+        FUSION_DF = df_fusion[df_fusion['nameLabel'] == label]
+        IMAGE_PATH = FUSION_DF['filepath'].values[0]
+        MASK_PATH = FUSION_DF['maskpath'].values[0]
+
+        # Lire l'image
+        image = cv2.imread(IMAGE_PATH, cv2.IMREAD_UNCHANGED)
+        mask = cv2.imread(MASK_PATH, cv2.IMREAD_UNCHANGED)
+        
+        # Convertir de BGR à RGB
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        
+        desired_shape = (224, 224)
+        
+        image = cv2.resize(image, desired_shape)
+        mask = cv2.resize(mask, desired_shape) / 255.0  # Normalisez le masque à [0, 1]
+
+        # Multipliez l'image par le masque pour obtenir le résultat
+        result = (image * mask[:, :, None]).astype(np.uint8)
+
+        # Afficher les images
+        ax[0].imshow(image)
+        ax[0].set_title(f'Image - {label}')
+        ax[0].axis('off')
+        
+        ax[1].imshow(mask, cmap='gray')
+        ax[1].set_title(f'Mask - {label}')
+        ax[1].axis('off')
+        
+        ax[2].imshow(result)
+        ax[2].set_title(f'Result - {label}')
+        ax[2].axis('off')
+
+    plt.tight_layout()
+    st.pyplot()

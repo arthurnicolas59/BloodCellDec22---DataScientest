@@ -247,3 +247,107 @@ with tab2:
         st.markdown('''
             * Le masquage des images présente-t-il un intérêt ?
             ''')
+
+with tab3:
+    col1,col2 =st.columns([0.55,0.45])
+    with col1:
+        st.markdown('''
+            * Structure du modèle
+            ''')
+        #Chargement du modèle
+        model_VGG16_images_brutes = tf.keras.models.load_model(r'C:\Users\lrochette\Documents\Perso\DataScientist\BloodCellDec22---DataScientest\Model\model_VGG16_images_brutes\model_VGG16_images_brutes.h5')
+
+        ## Présentation du Modèle
+        # from io import StringIO
+        # import sys
+
+        # # Création d'un objet StringIO pour capturer la sortie de la fonction summary
+        # buffer = StringIO()
+        # sys.stdout = buffer
+        # model_benchmark_images_masquees.summary()
+        # sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
+
+        # summary_str = buffer.getvalue()
+        # Afficher dans Streamlit
+        # st.text(summary_str)
+        st.image('streamlit_media\VGG16_Summary.png')
+        
+
+    with col2:
+        st.markdown('''
+            * Nature des images
+            ''')
+        indexes = np.random.choice(len(df))
+        image_path = df["filepath"][indexes]
+
+        # Charger et afficher l'image
+        plt.figure(figsize=(5,5))
+        image = Image.open(image_path)
+        plt.imshow(image)
+        
+        plt.axis("off")
+        st.pyplot()
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2 =st.columns([0.50,0.50])
+    with col1:
+        st.markdown('''
+            * VGG16(Images_brutes)
+            ''')
+        st.image('streamlit_media\Matrice_confusion_VGG16_images_brutes.png')
+        st.image('streamlit_media\Rapport_Classification_VGG16_images_brutes.png')
+    with col2:
+        st.markdown('''
+            * VGG16(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Matrice_confusion_VGG16_images_masquees.png')
+        st.image('streamlit_media\Rapport_Classification_VGG16_images_masquees.png')
+    
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2 =st.columns([0.50,0.50])
+    with col1:
+        st.markdown('''
+            * VGG16(Images_brutes)
+            ''')
+        st.image('streamlit_media\Interpretabilite_VGG16(Images_brutes).png')
+        
+    with col2:
+        st.markdown('''
+            * VGG16(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Interpretabilite_VGG16(Images_masquees).png')
+    
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2,col3=st.columns([0.2,0.6,0.2])
+    with col1:
+        st.write("")
+    with col2:
+        st.markdown('''
+            * Modèle reste très performant
+            ''')   
+        st.markdown('''
+            * Les prédictions restent ciblées sur les zones de l'image \ncorrespondant aux cellules sanguines
+            ''')

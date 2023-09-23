@@ -351,3 +351,43 @@ with tab3:
         st.markdown('''
             * Les prédictions restent ciblées sur les zones de l'image \ncorrespondant aux cellules sanguines
             ''')
+with tab4:
+    import pandas as pd
+    import plotly.graph_objects as go
+
+    st.markdown('''
+            * Dataframe
+            ''')
+
+    data = {
+        'Modèle': ['Benchmark(Images_Egal_hist)', 'Benchmark(Images_Egal_adapt)', 'Benchmark(Images_Masquees)', 'Benchmark(Images_brutes)','VGG16(Images_Masquees)','VGG16(Images_brutes)'],
+        'Accuracy': [0.9023, 0.9163, 0.9321, 0.9512,0.9830,0.9915],
+        'Recall':[0.8704, 0.9179, 0.9281, 0.9451,0.9804,0.9913],
+        'Precision':[0.9131, 0.9060, 0.9224, 0.9487,0.9845,0.9911],
+        'F1 score':[0.8820, 0.9078, 0.9239, 0.9467,0.9823,0.9912],
+    }
+
+    df = pd.DataFrame(data)
+    
+    st.dataframe(df)
+
+    st.markdown('''
+            * Représentation graphique
+            ''')
+    # Création du graphique avec plotly
+    
+    fig = go.Figure()
+
+    # Ajout des données pour chaque métrique
+    fig.add_trace(go.Bar(x=df['Modèle'], y=df['Accuracy'], name='Accuracy', marker_color='blue'))
+    fig.add_trace(go.Bar(x=df['Modèle'], y=df['Recall'], name='Recall', marker_color='green'))
+    fig.add_trace(go.Bar(x=df['Modèle'], y=df['Precision'], name='Precision', marker_color='yellow'))
+    fig.add_trace(go.Bar(x=df['Modèle'], y=df['F1 score'], name='F1 score', marker_color='red'))
+
+    # Modification de l'échelle du graphique (par exemple, entre 0.8 et 1.0)
+    fig.update_yaxes(range=[0.8, 1.0])
+
+    # Ajout du titre et des légendes
+    fig.update_layout(title='Performance des modèles', barmode='group')
+
+    st.plotly_chart(fig)

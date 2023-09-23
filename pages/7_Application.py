@@ -34,13 +34,13 @@ st.set_page_config(
 )
 
 #Titre
-st.title("Modèles(Format d'images)")
+st.title("Modèle(Format d'images)")
 
 df=pd.read_csv('Dataframe\df_fusion.csv')
 
 tab1, tab2, tab3, tab4=st.tabs(["**Benchmark(Images masquées)**","**VGG16(Images masquées)**","**VGG16(Images brutes)**","**Synthèse**"])
 with tab1:
-    col1,col2 =st.columns([0.5,0.5])
+    col1,col2 =st.columns([0.55,0.45])
     with col1:
         st.markdown('''
             * Structure du modèle
@@ -49,30 +49,201 @@ with tab1:
         model_benchmark_images_masquees = tf.keras.models.load_model(r'C:\Users\lrochette\Documents\Perso\DataScientist\BloodCellDec22---DataScientest\Model\model_benchmark_images_masquees\model_benchmark_images_masquees.h5')
 
         ## Présentation du Modèle
-        from io import StringIO
-        import sys
+        # from io import StringIO
+        # import sys
 
-        # Création d'un objet StringIO pour capturer la sortie de la fonction summary
-        buffer = StringIO()
-        sys.stdout = buffer
-        model_benchmark_images_masquees.summary()
-        sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
+        # # Création d'un objet StringIO pour capturer la sortie de la fonction summary
+        # buffer = StringIO()
+        # sys.stdout = buffer
+        # model_benchmark_images_masquees.summary()
+        # sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
 
-        summary_str = buffer.getvalue()
-
+        # summary_str = buffer.getvalue()
         # Afficher dans Streamlit
-        st.text(summary_str)
+        # st.text(summary_str)
+        st.image('streamlit_media\Benchmark_Summary.png')
+        
 
     with col2:
         st.markdown('''
-            * Sur images fusionnées
+            * Nature des images
             ''')
         indexes = np.random.choice(len(df))
         image_path = df["fusionpath"][indexes]
 
         # Charger et afficher l'image
+        plt.figure(figsize=(5,5))
         image = Image.open(image_path)
         plt.imshow(image)
         
         plt.axis("off")
         st.pyplot()
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2 =st.columns([0.50,0.50])
+    with col1:
+        st.markdown('''
+            * Benchmark(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Matrice_confusion_benchmark_images_masquees.png')
+        st.image('streamlit_media\Rapport_Classification_benchmark_images_masquees.png')
+    with col2:
+        st.markdown('''
+            * Benchmark(Images_brutes)
+            ''')
+        st.image('streamlit_media\Matrice_confusion_benchmark_images_brutes.png')
+        st.image('streamlit_media\Rapport_Classification_benchmark_images_brutes.png')
+    
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2 =st.columns([0.50,0.50])
+    with col1:
+        st.markdown('''
+            * Benchmark(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees).png')
+        
+    with col2:
+        st.markdown('''
+            * Benchmark(Images_brutes)
+            ''')
+        st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes).png')
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2,col3=st.columns([0.2,0.6,0.2])
+    with col1:
+        st.write("")
+    with col2:
+        st.markdown('''
+            * Le modèle perd beaucoup en performance
+            ''')
+        st.markdown('''
+            * Vers un modèle pré-entrainé ? VGG16 Resnet...
+            ''')
+    with col3:
+        st.write("")
+
+with tab2:
+    col1,col2 =st.columns([0.55,0.45])
+    with col1:
+        st.markdown('''
+            * Structure du modèle
+            ''')
+        #Chargement du modèle
+        model_VGG16_images_masquees = tf.keras.models.load_model(r'C:\Users\lrochette\Documents\Perso\DataScientist\BloodCellDec22---DataScientest\Model\model_VGG16_images_masquees\model_VGG16_images_masquees.h5')
+
+        ## Présentation du Modèle
+        # from io import StringIO
+        # import sys
+
+        # # Création d'un objet StringIO pour capturer la sortie de la fonction summary
+        # buffer = StringIO()
+        # sys.stdout = buffer
+        # model_benchmark_images_masquees.summary()
+        # sys.stdout = sys.__stdout__  # Réinitialisez la sortie standard
+
+        # summary_str = buffer.getvalue()
+        # Afficher dans Streamlit
+        # st.text(summary_str)
+        st.image('streamlit_media\VGG16_Summary.png')
+        
+
+    with col2:
+        st.markdown('''
+            * Nature des images
+            ''')
+        indexes = np.random.choice(len(df))
+        image_path = df["fusionpath"][indexes]
+
+        # Charger et afficher l'image
+        plt.figure(figsize=(5,5))
+        image = Image.open(image_path)
+        plt.imshow(image)
+        
+        plt.axis("off")
+        st.pyplot()
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2 =st.columns([0.50,0.50])
+    with col1:
+        st.markdown('''
+            * VGG16(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Matrice_confusion_VGG16_images_masquees.png')
+        st.image('streamlit_media\Rapport_Classification_VGG16_images_masquees.png')
+    with col2:
+        st.markdown('''
+            * Benchmark(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Matrice_confusion_benchmark_images_masquees.png')
+        st.image('streamlit_media\Rapport_Classification_benchmark_images_masquees.png')
+    
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2 =st.columns([0.50,0.50])
+    with col1:
+        st.markdown('''
+            * VGG16(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Interpretabilite_VGG16(Images_masquees).png')
+        
+    with col2:
+        st.markdown('''
+            * Benchmark(Images_Masquees)
+            ''')
+        st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees).png')
+    
+    st.divider()
+    col1,col2,col3=st.columns([0.4,0.2,0.4])
+    with col1:
+        st.write("")
+    with col2:
+        st.image('streamlit_media/FlecheBas.png')
+    with col3:
+        st.write("")
+
+    col1,col2,col3=st.columns([0.2,0.6,0.2])
+    with col1:
+        st.write("")
+    with col2:
+        st.markdown('''
+            * Modèle beaucoup plus performant
+            ''')   
+        st.markdown('''
+            * Le masquage des images présente-t-il un intérêt ?
+            ''')

@@ -266,8 +266,9 @@ with tab4:
         st.markdown('''
                 * Rapport de classification
                 ''')
+        
         # df=pd.read_csv('Dataframe\df_report_Benchmark_Images_brutes.csv')
-        # labels=['BA','EO','ERB','IG','LY','MO','NEU','PLA',]
+        # # labels=['BA','EO','ERB','IG','LY','MO','NEU','PLA',]
         # st.dataframe(df)
 
         st.image('streamlit_media\Rapport_Classification_benchmark_images_brutes.png')

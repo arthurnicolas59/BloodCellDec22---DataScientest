@@ -37,7 +37,7 @@ st.title("Modèle Benchmark Images Brutes")
 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-df=pd.read_csv('Dataframe\df_cleaned.csv')
+df=pd.read_csv('Dataframe/df_cleaned.csv')
 
 tab1, tab2, tab3, tab4,tab5,tab6=st.tabs(["**Structure**","**Chargement**","**Callbacks**","**Matrice de confusion**","**Prédictions**","**Interprétabilité**"])
 
@@ -262,7 +262,7 @@ with tab4:
         st.markdown('''
                 * Matrice de confusion
                 ''')
-        st.image('streamlit_media\Matrice_confusion_benchmark_images_brutes.png')
+        st.image('streamlit_media/Matrice_confusion_benchmark_images_brutes.png')
         st.markdown('''
                 * Rapport de classification
                 ''')
@@ -271,7 +271,7 @@ with tab4:
         # # labels=['BA','EO','ERB','IG','LY','MO','NEU','PLA',]
         # st.dataframe(df)
 
-        st.image('streamlit_media\Rapport_Classification_benchmark_images_brutes.png')
+        st.image('streamlit_media/Rapport_Classification_benchmark_images_brutes.png')
         # #Prediction Modele Benchmark images brutes
         # pred_benchmark_images_brutes = model_benchmark_images_brutes.predict(test_set)
         # y_pred_benchmark_images_brutes = tf.argmax(pred_benchmark_images_brutes, axis = 1)
@@ -316,7 +316,7 @@ with tab5:
                 * Erreur de prédiction du modèle
                 ''')
     
-    df_interpretation=pd.read_csv('Dataframe\df_interpretation.csv')
+    df_interpretation=pd.read_csv('Dataframe/df_interpretation.csv')
     df_new = df_interpretation.loc[df_interpretation['target'] != df_interpretation['prediction']] #je crée un dataframe reprenant uniquement la catégorie i
     
     df_new=df_new.reset_index(drop=True)

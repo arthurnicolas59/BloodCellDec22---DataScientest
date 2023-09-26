@@ -36,7 +36,7 @@ st.set_page_config(
 #Titre
 st.title("Modèle(Format d'images)")
 
-df=pd.read_csv('Dataframe\df_fusion.csv')
+df=pd.read_csv('Dataframe/df_fusion.csv')
 
 tab1, tab2, tab3, tab4=st.tabs(["**Benchmark(Images masquées)**","**VGG16(Images masquées)**","**VGG16(Images brutes)**","**Synthèse**"])
 with tab1:
@@ -61,7 +61,7 @@ with tab1:
         # summary_str = buffer.getvalue()
         # Afficher dans Streamlit
         # st.text(summary_str)
-        st.image('streamlit_media\Benchmark_Summary.png')
+        st.image('streamlit_media/Benchmark_Summary.png')
         
 
     with col2:
@@ -92,14 +92,14 @@ with tab1:
         st.markdown('''
             * Benchmark(Images_Masquees)
             ''')
-        st.image('streamlit_media\Matrice_confusion_benchmark_images_masquees.png')
-        st.image('streamlit_media\Rapport_Classification_benchmark_images_masquees.png')
+        st.image('streamlit_media/Matrice_confusion_benchmark_images_masquees.png')
+        st.image('streamlit_media/Rapport_Classification_benchmark_images_masquees.png')
     with col2:
         st.markdown('''
             * Benchmark(Images_brutes)
             ''')
-        st.image('streamlit_media\Matrice_confusion_benchmark_images_brutes.png')
-        st.image('streamlit_media\Rapport_Classification_benchmark_images_brutes.png')
+        st.image('streamlit_media/Matrice_confusion_benchmark_images_brutes.png')
+        st.image('streamlit_media/Rapport_Classification_benchmark_images_brutes.png')
     
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
@@ -115,13 +115,13 @@ with tab1:
         st.markdown('''
             * Benchmark(Images_Masquees)
             ''')
-        st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees).png')
+        st.image('streamlit_media/Interpretabilite_Benchmark(Images_masquees).png')
         
     with col2:
         st.markdown('''
             * Benchmark(Images_brutes)
             ''')
-        st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes).png')
+        st.image('streamlit_media/Interpretabilite_Benchmark(Images_brutes).png')
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
     with col1:
@@ -166,7 +166,7 @@ with tab2:
         # summary_str = buffer.getvalue()
         # Afficher dans Streamlit
         # st.text(summary_str)
-        st.image('streamlit_media\VGG16_Summary.png')
+        st.image('streamlit_media/VGG16_Summary.png')
         
 
     with col2:
@@ -197,14 +197,14 @@ with tab2:
         st.markdown('''
             * VGG16(Images_Masquees)
             ''')
-        st.image('streamlit_media\Matrice_confusion_VGG16_images_masquees.png')
-        st.image('streamlit_media\Rapport_Classification_VGG16_images_masquees.png')
+        st.image('streamlit_media/Matrice_confusion_VGG16_images_masquees.png')
+        st.image('streamlit_media/Rapport_Classification_VGG16_images_masquees.png')
     with col2:
         st.markdown('''
             * Benchmark(Images_Masquees)
             ''')
-        st.image('streamlit_media\Matrice_confusion_benchmark_images_masquees.png')
-        st.image('streamlit_media\Rapport_Classification_benchmark_images_masquees.png')
+        st.image('streamlit_media/Matrice_confusion_benchmark_images_masquees.png')
+        st.image('streamlit_media/Rapport_Classification_benchmark_images_masquees.png')
     
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
@@ -220,13 +220,13 @@ with tab2:
         st.markdown('''
             * VGG16(Images_Masquees)
             ''')
-        st.image('streamlit_media\Interpretabilite_VGG16(Images_masquees).png')
+        st.image('streamlit_media/Interpretabilite_VGG16(Images_masquees).png')
         
     with col2:
         st.markdown('''
             * Benchmark(Images_Masquees)
             ''')
-        st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees).png')
+        st.image('streamlit_media/Interpretabilite_Benchmark(Images_masquees).png')
     
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
@@ -270,7 +270,7 @@ with tab3:
         # summary_str = buffer.getvalue()
         # Afficher dans Streamlit
         # st.text(summary_str)
-        st.image('streamlit_media\VGG16_Summary.png')
+        st.image('streamlit_media/VGG16_Summary.png')
         
 
     with col2:
@@ -301,14 +301,14 @@ with tab3:
         st.markdown('''
             * VGG16(Images_brutes)
             ''')
-        st.image('streamlit_media\Matrice_confusion_VGG16_images_brutes.png')
-        st.image('streamlit_media\Rapport_Classification_VGG16_images_brutes.png')
+        st.image('streamlit_media/Matrice_confusion_VGG16_images_brutes.png')
+        st.image('streamlit_media/Rapport_Classification_VGG16_images_brutes.png')
     with col2:
         st.markdown('''
             * VGG16(Images_Masquees)
             ''')
-        st.image('streamlit_media\Matrice_confusion_VGG16_images_masquees.png')
-        st.image('streamlit_media\Rapport_Classification_VGG16_images_masquees.png')
+        st.image('streamlit_media/Matrice_confusion_VGG16_images_masquees.png')
+        st.image('streamlit_media/Rapport_Classification_VGG16_images_masquees.png')
     
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
@@ -324,13 +324,13 @@ with tab3:
         st.markdown('''
             * VGG16(Images_brutes)
             ''')
-        st.image('streamlit_media\Interpretabilite_VGG16(Images_brutes).png')
+        st.image('streamlit_media/Interpretabilite_VGG16(Images_brutes).png')
         
     with col2:
         st.markdown('''
             * VGG16(Images_Masquees)
             ''')
-        st.image('streamlit_media\Interpretabilite_VGG16(Images_masquees).png')
+        st.image('streamlit_media/Interpretabilite_VGG16(Images_masquees).png')
     
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])

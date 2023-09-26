@@ -26,22 +26,22 @@ st.set_page_config(
 #EDA
 st.header("Analyse Exploratoire des Données")
 
-tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["**Structure du dataset**", "**Dataframe**", "**Apperçu**","**Répartition par classe**","**Moyenne et écart type**","**Projection 2D**"])
+tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["**Structure du dataset**", "**Dataframe**", "**Aperçu**","**Répartition par classe**","**Moyenne et écart type**","**Projection 2D**"])
 
 with tab1:
    st.subheader("Structure du dataset")
    st.write('Les images téléchargées sont réparties en 8 sous dossiers')
-   st.image('streamlit_media\Explorateur_fichiers.png', width=200)
+   st.image('streamlit_media/Explorateur_fichiers.png', width=200)
 
 with tab2:
    st.subheader("Dataframe")
    st.write('''Selon cette architecture, les images présentaient les chemins d'accès suivants, que nous avons enregistrés dans un dataframe''')
-   df=pd.read_csv('Dataframe\df_cleaned.csv')
+   df=pd.read_csv('Dataframe/df_cleaned.csv')
    df.sort_values('Path')
    st.dataframe(df)
 
 with tab3:
-    st.subheader("Apperçu")
+    st.subheader("Aperçu")
     st.divider()
     st.markdown('''
                 * :red[Echantillon alétoire : 1 image par catégorie]''')

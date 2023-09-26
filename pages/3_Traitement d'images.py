@@ -25,7 +25,7 @@ st.header("Traitement d'images")
 
 # Chargement d'une image test
 
-df=pd.read_csv('Dataframe\df_cleaned.csv')
+df=pd.read_csv('Dataframe/df_cleaned.csv')
 
 num = st.slider('**Sélectionnez une image à traiter**', 0, 17091, 8000)
 st.write(f"vous avez sélectionné une image de la catégorie:", df['target'][num])
@@ -137,7 +137,7 @@ with tab1:
     col1,col2=st.columns([0.8,0.2])
     with col1:
         st.write('**Projection 2D t-SNE**')
-        st.image('streamlit_media\Projection2DimagesEgalisees.png')
+        st.image('streamlit_media/Projection2DimagesEgalisees.png')
     with col2:
         st.write('')
         st.write('')
@@ -217,7 +217,7 @@ with tab2:
         col1,col2=st.columns([0.8,0.2])
         with col1:
             st.write('**Projection 2D t-SNE**')
-            st.image('streamlit_media\Projection2DimagesEgalisationAdaptative.png')
+            st.image('streamlit_media/Projection2DimagesEgalisationAdaptative.png')
         with col2:
             st.write('')
             st.write('')

@@ -33,7 +33,7 @@ st.set_page_config(
 #Segmentation
 st.header("Segmentation")
 
-df_mask=pd.read_csv('Dataframe\df_mask_SAM.csv')
+df_mask=pd.read_csv('Dataframe/df_mask_SAM.csv')
 tab1, tab2,tab3 = st.tabs(["**Segmentation SAM**", "**Prédiction Unet**","**Image masquée**"])
 
 with tab1:
@@ -43,10 +43,10 @@ with tab1:
         
     with col2:
         st.write("**2°) Extraction de l'objet**")
-    st.image('streamlit_media\SAM2.png')
-    st.image('streamlit_media\SAM3.png')
-    st.image('streamlit_media\SAM4.png')
-    st.image('streamlit_media\SAM5.png')
+    st.image('streamlit_media/SAM2.png')
+    st.image('streamlit_media/SAM3.png')
+    st.image('streamlit_media/SAM4.png')
+    st.image('streamlit_media/SAM5.png')
 
     st.divider()
 
@@ -54,7 +54,7 @@ with tab1:
     with col1 :
         st.write("")
     with col2:
-        st.image('streamlit_media\FlecheBas.png',width=100)
+        st.image('streamlit_media/FlecheBas.png',width=100)
         
     with col3:
         st.write("")

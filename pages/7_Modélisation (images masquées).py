@@ -34,7 +34,7 @@ st.set_page_config(
 )
 
 #Titre
-st.title("Modèle(Format d'images)")
+st.header("Modélisation (images masquées)")
 
 df=pd.read_csv('Dataframe\df_fusion.csv')
 

@@ -97,7 +97,6 @@ with tab3:
     # Visualisation
     st.pyplot(fig)
 
-
 with tab4:
     st.subheader("Répartition par classe")
 
@@ -201,6 +200,6 @@ with tab6:
     with col1:
         st.write("")
     with col2:
-        st.subheader("? Traitement d'images ?")
+        st.subheader(''':red[Intérêt d'un traitement d'images ?]''')
     with col3:
         st.write("")

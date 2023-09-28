@@ -192,11 +192,11 @@ with tab6:
     with col1:
         st.write("")
     with col2:        
-        st.image('streamlit_media/FlecheBas.png')
+        st.image('streamlit_media/FlecheBas.png',width=100)
     with col3:
         st.write("")
 
-    col1,col2,col3=st.columns([0.25,0.5,0.25])
+    col1,col2,col3=st.columns([0.2,0.6,0.2])
     with col1:
         st.write("")
     with col2:

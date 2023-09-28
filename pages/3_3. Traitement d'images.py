@@ -130,7 +130,7 @@ with tab1:
     with col1:
         st.write("")
     with col2:    
-        st.image('streamlit_media/FlecheBas.png')
+        st.image('streamlit_media/FlecheBas.png',width=100)
     with col3:
         st.write("")
 
@@ -210,7 +210,7 @@ with tab2:
         with col1:
             st.write("")
         with col2:
-            st.image('streamlit_media/FlecheBas.png')
+            st.image('streamlit_media/FlecheBas.png',width=100)
         with col3:
             st.write("")
 

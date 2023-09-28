@@ -350,14 +350,7 @@ with tab3:
     
     st.divider()
     col1,col2,col3=st.columns([0.475,0.05,0.475])
-    with col1:
-        st.image('streamlit_media/FlecheBas.png',width=100)
-    with col2:
-        st.write("")
-    with col3:
-        st.image('streamlit_media/FlecheBas.png',width=100)
 
-    col1,col2,col3=st.columns([0.475,0.05,0.475])
     with col1:
         st.subheader("Score de rappel plus faible pour la classe IG\n Attention aux faux négatifs\n pour l'incidence médicale que cela peut avoir")      
     with col2:
@@ -444,75 +437,114 @@ with tab4:
 
     st.pyplot()
 with tab5:
-    from tensorflow.keras.preprocessing import image
-    import numpy as np
-    from lime.lime_image import LimeImageExplainer
+    # from tensorflow.keras.preprocessing import image
+    # import numpy as np
+    # from lime.lime_image import LimeImageExplainer
 
-    # Charger l'image à partir du chemin d'accès et la prétraiter
-    def load_and_preprocess_image(image_path):
-        img = image.load_img(image_path, target_size=(224, 224))
-        img_array = image.img_to_array(img)
-        img_array = np.expand_dims(img_array, axis=0)  # Convertir l'image en un batch de taille (1, height, width, channels)
-        img_array /= 255.  # rescale
-        return img_array[0]  # return the first image in the batch (our only image)
+    # # Charger l'image à partir du chemin d'accès et la prétraiter
+    # def load_and_preprocess_image(image_path):
+    #     img = image.load_img(image_path, target_size=(224, 224))
+    #     img_array = image.img_to_array(img)
+    #     img_array = np.expand_dims(img_array, axis=0)  # Convertir l'image en un batch de taille (1, height, width, channels)
+    #     img_array /= 255.  # rescale
+    #     return img_array[0]  # return the first image in the batch (our only image)
 
-    # Modifier la fonction pour obtenir une explication
-    def get_explanation(numpy_image, model):
-        explainer = LimeImageExplainer(verbose=False)
-        explanation = explainer.explain_instance(
-            image=numpy_image,
-            classifier_fn=model.predict,
-            top_labels=1,
-            num_samples=100
-        )
-        dict_explainer = {'Label': explanation}
-        return dict_explainer
-    def plot_explainer(dict_explainer):
-        from skimage.segmentation import mark_boundaries
-        for cle, objet in dict_explainer.items():
-            # st.caption("Analyse LIME pour une image de la catégorie {}".format(cle))
-            temp_1, mask_1 = objet.get_image_and_mask(objet.top_labels[0], positive_only=True, num_features=5, hide_rest=True)
-            temp_2, mask_2 = objet.get_image_and_mask(objet.top_labels[0], positive_only=False, num_features=10, hide_rest=False)
-            plt.figure(figsize=(10,10))
-            plt.subplot(121)
-            plt.imshow(mark_boundaries(temp_1, mask_1))
-            plt.title('SuperPixel pour cette catégorie')
-            plt.axis('off')
-
-            plt.subplot(122)
-            plt.imshow(mark_boundaries(temp_2, mask_2))
-            plt.title('Répartition des pixels positifs (vert) et négatifs (rouge)')
-            plt.axis('off')
-            st.pyplot()
-
-    # Chargement de l'image et obtention de l'explication
-    for path in list_path:
+    # # Modifier la fonction pour obtenir une explication
+    # def get_explanation(numpy_image, model):
+    #     explainer = LimeImageExplainer(verbose=False)
+    #     explanation = explainer.explain_instance(
+    #         image=numpy_image,
+    #         classifier_fn=model.predict,
+    #         top_labels=1,
+    #         num_samples=100
+    #     )
+    #     dict_explainer = {'Label': explanation}
+    #     return dict_explainer
     
-        image_path = path
-        numpy_image = load_and_preprocess_image(image_path)
-        dict_explainer = get_explanation(numpy_image, model_benchmark_images_brutes)
+    # def plot_explainer(dict_explainer):
+    #     from skimage.segmentation import mark_boundaries
+    #     for cle, objet in dict_explainer.items():
+    #         # st.caption("Analyse LIME pour une image de la catégorie {}".format(cle))
+    #         temp_1, mask_1 = objet.get_image_and_mask(objet.top_labels[0], positive_only=True, num_features=5, hide_rest=True)
+    #         temp_2, mask_2 = objet.get_image_and_mask(objet.top_labels[0], positive_only=False, num_features=10, hide_rest=False)
+    #         plt.figure(figsize=(10,10))
+    #         plt.subplot(121)
+    #         plt.imshow(mark_boundaries(temp_1, mask_1))
+    #         plt.title('SuperPixel pour cette catégorie')
+    #         plt.axis('off')
 
-        # Affichage de l'explication
-        plot_explainer(dict_explainer)
+    #         plt.subplot(122)
+    #         plt.imshow(mark_boundaries(temp_2, mask_2))
+    #         plt.title('Répartition des pixels positifs (vert) et négatifs (rouge)')
+    #         plt.axis('off')
+    #         st.pyplot()
+
+    col1,col2,col3=st.columns([0.475,0.05,0.475])
+    with col1:
+        st.markdown('''
+                * CNN Benchmark :
+                ''')
+        st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes).png')
+
+        # Chargement de l'image et obtention de l'explication
+        # for path in list_path:
+        
+        #     image_path = path
+        #     numpy_image = load_and_preprocess_image(image_path)
+        #     dict_explainer = get_explanation(numpy_image, model_benchmark_images_brutes)
+
+        #     # Affichage de l'explication
+        #     plot_explainer(dict_explainer)
+    with col2:
+        st.write("")
+    
+    with col3:
+        st.markdown('''
+                * VGG16 :
+                ''')
+        st.image('streamlit_media\Interpretabilite_VGG16(Images_brutes).png')
+        # # Chargement de l'image et obtention de l'explication
+        # for path in list_path:
+        
+        #     image_path = path
+        #     numpy_image = load_and_preprocess_image(image_path)
+        #     dict_explainer = get_explanation(numpy_image, model_VGG16_images_brutes)
+
+        #     # Affichage de l'explication
+        #     plot_explainer(dict_explainer)
+
+
+    st.divider()
+    col1,col2,col3=st.columns([0.475,0.05,0.475])
+    with col1:
+        st.markdown('''
+                    Ce modèle considère mal les zones de l'image correspondant aux cellules sanguines
+                    ''')
+    with col2:
+        st.write("")
+    with col3:
+        st.markdown('''
+            Le modèle considère mieux les zones de l'image correspondant aux cellules sanguines
+            ''')
+        
+
 
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
     with col1:
         st.write("")
     with col2:
-        st.image('streamlit_media/FlecheBas.png')
+        st.image('streamlit_media/FlecheBas.png',width=100)
     with col3:
         st.write("")
 
+    
     col1,col2,col3=st.columns([0.2,0.6,0.2])
     with col1:
         st.write("")
     with col2:
-        st.markdown('''
-            * Le modèle ne semble pas retenir les zones de l'image correspondant aux cellules sanguines
-            ''')
-        st.markdown('''
-            * Segmentation et création de masques ?
+        st.subheader('''
+            :red[Vers une segmentation d'image et création de masques ?]
             ''')
     with col3:
         st.write("")

@@ -83,7 +83,7 @@ with tab1:
     with col1:
         st.write("")
     with col2:
-        st.image('streamlit_media/FlecheBas.png')
+        st.image('streamlit_media/FlecheBas.png',width=100)
     with col3:
         st.write("")
 
@@ -106,7 +106,7 @@ with tab1:
     with col1:
         st.write("")
     with col2:
-        st.image('streamlit_media/FlecheBas.png')
+        st.image('streamlit_media/FlecheBas.png',width=100)
     with col3:
         st.write("")
 
@@ -116,30 +116,33 @@ with tab1:
             * Benchmark(Images_Masquees)
             ''')
         st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees).png')
+        st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees)_2.png')
         
     with col2:
         st.markdown('''
             * Benchmark(Images_brutes)
             ''')
         st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes).png')
+        st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes)_2.png')
+        
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])
     with col1:
         st.write("")
     with col2:
-        st.image('streamlit_media/FlecheBas.png')
+        st.image('streamlit_media/FlecheBas.png',width=100)
     with col3:
         st.write("")
 
-    col1,col2,col3=st.columns([0.2,0.6,0.2])
+    col1,col2,col3=st.columns([0.1,0.8,0.1])
     with col1:
         st.write("")
     with col2:
-        st.markdown('''
-            * Le modèle perd beaucoup en performance
+        st.subheader('''
+            :red[Le modèle perd beaucoup en performance]
             ''')
-        st.markdown('''
-            * Vers un modèle pré-entrainé ? VGG16 Resnet...
+        st.subheader('''
+            :red[Vers un modèle pré-entrainé ? VGG16 Resnet...]
             ''')
     with col3:
         st.write("")
@@ -223,12 +226,14 @@ with tab2:
             * VGG16(Images_Masquees)
             ''')
         st.image('streamlit_media\Interpretabilite_VGG16(Images_masquees).png')
+        st.image('streamlit_media\Interpretabilite_VGG16(Images_masquees)_2.png')
         
     with col2:
         st.markdown('''
             * VGG16(Images_Brutes)
             ''')
         st.image('streamlit_media\Interpretabilite_VGG16(Images_brutes).png')
+        st.image('streamlit_media\Interpretabilite_VGG16(Images_brutes)_2.png')
     
     st.divider()
     col1,col2,col3=st.columns([0.4,0.2,0.4])

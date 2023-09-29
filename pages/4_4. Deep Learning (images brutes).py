@@ -261,7 +261,7 @@ with tab2:
     code = '''
     early_stopping = callbacks.EarlyStopping(monitor='val_loss', #métrique à controller
                                          min_delta = 0.01, # si au bout de 5 epochs la fonction de perte ne varie pas de 1%, que ce soit à la hausse ou à la baisse, on arrête au bout de 5 épochs
-                                         patience=10,
+                                         patience=5,
                                          verbose = 0,
                                          mode='min',
                                          restore_best_weights=True)
@@ -485,6 +485,8 @@ with tab5:
                 * CNN Benchmark :
                 ''')
         st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes).png')
+        st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes)_2.png')
+
 
         # Chargement de l'image et obtention de l'explication
         # for path in list_path:
@@ -503,6 +505,7 @@ with tab5:
                 * VGG16 :
                 ''')
         st.image('streamlit_media\Interpretabilite_VGG16(Images_brutes).png')
+        st.image('streamlit_media\Interpretabilite_VGG16(Images_brutes)_2.png')
         # # Chargement de l'image et obtention de l'explication
         # for path in list_path:
         
@@ -518,13 +521,13 @@ with tab5:
     col1,col2,col3=st.columns([0.475,0.05,0.475])
     with col1:
         st.markdown('''
-                    Ce modèle considère mal les zones de l'image correspondant aux cellules sanguines
+                    "CNN Benchmark" considère mal les zones de l'image correspondant aux cellules sanguines
                     ''')
     with col2:
         st.write("")
     with col3:
         st.markdown('''
-            Le modèle considère mieux les zones de l'image correspondant aux cellules sanguines
+            VGG16 considère mieux les zones de l'image correspondant aux cellules sanguines
             ''')
         
 

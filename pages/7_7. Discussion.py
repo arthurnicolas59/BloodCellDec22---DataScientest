@@ -13,8 +13,8 @@ st.set_page_config(
 #Titre
 st.title("Discussion")
 
-st.subheader('''
-    * Dataframe
+st.markdown('''
+    * :red[Tableau de synthèse des performances des différents modèles]
     ''')
 
 data = {
@@ -29,8 +29,8 @@ df = pd.DataFrame(data)
 
 st.dataframe(df)
 
-st.subheader('''
-    * Représentation graphique
+st.markdown('''
+    * :red[Représentation graphique]
     ''')
 # Création du graphique avec plotly
 
@@ -39,14 +39,14 @@ fig = go.Figure()
 # Ajout des données pour chaque métrique
 fig.add_trace(go.Bar(x=df['Modèle'], y=df['Accuracy'], name='Accuracy', marker_color='blue'))
 fig.add_trace(go.Bar(x=df['Modèle'], y=df['Recall'], name='Recall', marker_color='green'))
-fig.add_trace(go.Bar(x=df['Modèle'], y=df['Precision'], name='Precision', marker_color='yellow'))
+fig.add_trace(go.Bar(x=df['Modèle'], y=df['Precision'], name='Precision', marker_color='gray'))
 fig.add_trace(go.Bar(x=df['Modèle'], y=df['F1 score'], name='F1 score', marker_color='red'))
 
 # Modification de l'échelle du graphique (par exemple, entre 0.8 et 1.0)
 fig.update_yaxes(range=[0.8, 1.0])
 
 # Ajout du titre et des légendes
-fig.update_layout(title='Performance des modèles', barmode='group')
+fig.update_layout(barmode='group')
 
 st.plotly_chart(fig)
 

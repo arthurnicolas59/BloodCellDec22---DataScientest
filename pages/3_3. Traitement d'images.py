@@ -197,10 +197,10 @@ with tab2:
         axes[0, 1].axis('off')
 
         # Afficher l'histogramme original
-        plot_histogram(l_channel, 'Analyse spectrale', axes[1, 0])
+        plot_histogram(l_channel, 'Histogramme avant égalisation', axes[1, 0])
 
         # Afficher l'histogramme égalisé
-        plot_histogram(cl_channel, 'Analyse spectrale', axes[1, 1])
+        plot_histogram(cl_channel, 'Histogramme après égalisation', axes[1, 1])
 
         plt.tight_layout()
         st.pyplot()

@@ -359,7 +359,7 @@ with tab3:
         st.subheader("Excellent score, même pour la classe IG")
 with tab4:
     st.markdown('''
-                * Erreur de prédiction du modèle
+                * Erreur de prédiction du modèle CNN Benchmark
                 ''')
     
     df_interpretation=pd.read_csv('Dataframe\df_interpretation.csv')
@@ -400,7 +400,7 @@ with tab4:
     st.divider()
 
     st.markdown('''
-            * Bonne prédiction du modèle
+            * Bonne prédiction du modèle CNN Benchmark
             ''')
        
     df_true = df_interpretation.loc[df_interpretation['target'] == df_interpretation['prediction']] #je crée un dataframe reprenant uniquement la catégorie i

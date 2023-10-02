@@ -90,13 +90,13 @@ with tab1:
     col1,col2 =st.columns([0.50,0.50])
     with col1:
         st.markdown('''
-            * Benchmark(Images_Masquees)
+            * CNN Benchmark(Images_Masquees)
             ''')
         st.image('streamlit_media\Matrice_confusion_benchmark_images_masquees.png')
         st.image('streamlit_media\Rapport_Classification_benchmark_images_masquees.png')
     with col2:
         st.markdown('''
-            * Benchmark(Images_brutes)
+            * CNN Benchmark(Images_brutes)
             ''')
         st.image('streamlit_media\Matrice_confusion_benchmark_images_brutes.png')
         st.image('streamlit_media\Rapport_Classification_benchmark_images_brutes.png')
@@ -113,14 +113,14 @@ with tab1:
     col1,col2 =st.columns([0.50,0.50])
     with col1:
         st.markdown('''
-            * Benchmark(Images_Masquees)
+            * CNN Benchmark(Images_Masquees)
             ''')
         st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees).png')
         st.image('streamlit_media\Interpretabilite_Benchmark(Images_masquees)_2.png')
         
     with col2:
         st.markdown('''
-            * Benchmark(Images_brutes)
+            * CNN Benchmark(Images_brutes)
             ''')
         st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes).png')
         st.image('streamlit_media\Interpretabilite_Benchmark(Images_brutes)_2.png')

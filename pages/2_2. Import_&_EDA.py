@@ -26,7 +26,7 @@ st.set_page_config(
 #EDA
 st.header("Analyse Exploratoire des Données")
 
-tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["**Structure du dataset**", "**Dataframe**", "**Apperçu**","**Répartition par classe**","**Moyenne et écart type**","**Projection 2D**"])
+tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["**Structure du dataset**", "**Dataframe**", "**Aperçu**","**Répartition par classe**","**Moyenne et écart type**","**Projection 2D**"])
 
 with tab1:
    st.subheader("Structure du dataset")

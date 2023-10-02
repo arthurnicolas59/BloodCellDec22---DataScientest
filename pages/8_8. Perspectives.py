@@ -24,7 +24,7 @@ with tab1:
                         ''')
                         
 with tab2:
-    st.image('streamlit_media\perspectives_implementation_1.png')
+    # st.image('streamlit_media\perspectives_implementation_1.png')
     st.image('streamlit_media\perspectives_implementation_2.png')
 with tab3:
     col1, col2=st.columns([0.5,0.5])

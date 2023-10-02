@@ -41,7 +41,7 @@ with tab2:
    st.dataframe(df)
 
 with tab3:
-    st.subheader("Apperçu")
+    st.subheader("Aperçu")
     st.divider()
     st.markdown('''
                 * :red[Echantillon alétoire : 1 image par catégorie]''')
